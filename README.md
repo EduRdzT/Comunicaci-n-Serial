@@ -26,7 +26,7 @@ En este reporte se incluye información sobre: el protocolo de comunicación ser
 
 ### Objetivos específicos 
 
-####Objetivo 0: Hardware 
+#### Objetivo 0: Hardware 
 
 - Programe el nuevo firmware del sistema (Serial.hex) en el chip 18F4550 e instale el nuevo driver que se encuentra en el archivo .zip (solo si el sistema lo solicita), lea las instrucciones de uso en Leeme.pdf. 
 
@@ -36,6 +36,8 @@ En este reporte se incluye información sobre: el protocolo de comunicación ser
 - Pruebe la función de escritura y monitoree la salida. 
 - Haga mediciones del Baudrate, latencia, etcétera.
 - Haga mediciones del punto anterior por lo menos con dos velocidades diferentes.
+
+![Arquitectura ALU](/Img/Imagen1.png)
 
 #### Objetivo 2: Hardware y software
 
@@ -51,6 +53,9 @@ Basado en el siguiente protocolo: describa, diseñe e implante el circuito B) qu
 2. Ser capaz de responder a los protocolos hardware de puerto serial RS232 (entrada). 
 3. Descripción de protocolo software de alto nivel : 
 El dato leído por B), se interpreta como se muestra en siguiente tabla.
+
+![Arquitectura ALU](/Img/Imagen2.png)
+
 4. Los datos leídos por el teclado de la computadora, deben ser en formato binario {0 y 1}.
 5. Los datos mostrados en la pantalla de la computadora deben ser en formato Binario, Octal, Decimal y Hexadecimal. 
 6. Instalar Leds, en los registros de salidas, para visualizar los datos enviados. 
@@ -93,6 +98,8 @@ Algunas de sus características son:
 - Programación ICSP vía dos pines.
 - Tiene 40 pines
 
+![Arquitectura ALU](/Img/Imagen3.png)
+
 #### PIC12F675
 
 El PIC12F675 está diseñado siguiendo la arquitectura Harvard, es decir, la memoria de datos está separada de la de programa. Este microcontrolador consta de: 
@@ -103,11 +110,15 @@ El PIC12F675 está diseñado siguiendo la arquitectura Harvard, es decir, la mem
 - Voltaje de alimentación: 2V ~ 5.5V
 - 4 selecciones de oscilador, incluido un oscilador RC de 4 MHz con calibración programable y reinicio de encendido.
 
+![Arquitectura ALU](/Img/Imagen4.png)
+
 #### Biblioteca de puerto serial.
 
 En esta primera práctica se ocupó la biblioteca del puerto serial, la cual realiza la comunicación entre el software y el hardware. La implantación de la biblioteca nos da acceso a las siguientes funciones:
 - Construir el objeto “Mi serial”, identificando el puerto y la velocidad de operación.
 - Escribir un byte al puerto previamente seleccionado
+
+![Arquitectura ALU](/Img/Imagen5.png)
 
 ## DESARROLLO EXPERIMENTAL<a name="id4"></a>
 
@@ -153,9 +164,13 @@ La función de escritura se probó al menos dos veces con velocidades de transmi
 
 La máquina de estados diseñada para poder cubrir con este objetivo fue la siguiente.
  
+ ![Arquitectura ALU](/Img/Imagen6.png)
+ 
 _Figura 3. Máquina de estados._
 
 El circuito implementado en esta práctica se muestra en la siguiente figura.
+
+![Arquitectura ALU](/Img/Imagen7.png)
 
 En este circuito se conecto el PIC18F4550 al PIC12F675 y al registro sipo para la comunicación serial, en el PIC12F675 se programo la maquina de estados por lo que manipulaba el reloj de todos los registros utilizados.
 
@@ -170,11 +185,15 @@ PIPO 2: habilitación del reloj para el registro pipo 2.
 CLK PIPO 1: reloj del registro pipo 1. 
 CLK PIPO 2: reloj del registro pipo 2.
 
+![Arquitectura ALU](/Img/Imagen8.png)
+
 _Figura 5. Diagrama de tiempos para la dirección_
 
 Al hacer la detección del bit de inicio empieza un contador que dura 614us, el cual es el tiempo que tarda en mantener un bit de dato para hacer la siguiente detección, este proceso se repetirá ocho veces para detectar 1 byte de dato.
 
 Después se detectará el bit más significativo para saber en qué registro se va a trabajar se habilita el reloj del registro, a este proceso se le llama la detección de dirección (figura 5).
+
+![Arquitectura ALU](/Img/Imagen9.png)
 
 _Figura 6. Diagrama de tiempos para el dato_
 
@@ -262,7 +281,11 @@ declaración de variables:
 
 La función de escritura se ejecutó a una velocidad de transmisión de 2400 baudrate, la velocidad resultante de envío de datos fue de 480µs, esta velocidad se puede observar en la figura 7.
 
+![Arquitectura ALU](/Img/Imagen10.png)
+
 La figura 8 muestra la captura de los datos enviados con la función escritura.
+
+![Arquitectura ALU](/Img/Imagen11.png)
 
 Así mismo podemos observar que el bit de inicio se encuentra en 0 y el bit de paro se encuentra en 1 como lo indicaba el protocolo de comunicación serial propuesto al inicio.
 
@@ -270,9 +293,15 @@ Lo siguiente fue detectar el bit menos significativo para poder seleccionar la d
 
 A continuación, se muestra el código en ejecución.
 
+![Arquitectura ALU](/Img/Imagen12.png)
+
 Al seleccionar algunos de los dos registros se accede al siguiente menú.
 
+![Arquitectura ALU](/Img/Imagen13.png)
+
 Finalmente, la figura 11 muestra el circuito ya implementado.
+
+![Arquitectura ALU](/Img/Imagen14.jpg)
  
 ## REFERENCIAS<a name="id6"></a>
 
